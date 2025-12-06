@@ -1,23 +1,34 @@
-//SPDX-License-Identifier: MIT
-pragma solidity ^0.8.13;
+// I'm a comment!
+// SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8.19;
+
+// pragma solidity ^0.8.0;
+// pragma solidity >=0.8.0 <0.9.0;
 
 contract SimpleStorage {
-    uint256 public favoriteNumber;
+    uint256 myFavoriteNumber;
 
     struct Person {
         uint256 favoriteNumber;
         string name;
     }
+    // uint256[] public anArray;
+    Person[] public listOfPeople;
 
-    Person[] public ListOfPeople;
-    
+    mapping(string => uint256) public nameToFavoriteNumber;
+
     function store(uint256 _favoriteNumber) public {
-        favoriteNumber = _favoriteNumber;
+        myFavoriteNumber = _favoriteNumber;
+    }
+
+    function retrieve() public view returns (uint256) {
+        return myFavoriteNumber;
     }
 
     function addPerson(string memory _name, uint256 _favoriteNumber) public {
-        ListOfPeople.push(Person(_favoriteNumber, _name));
+        listOfPeople.push(Person({ favoriteNumber: _favoriteNumber, name: _name }));
+        nameToFavoriteNumber[_name] = _favoriteNumber;
     }
-
 }
 
